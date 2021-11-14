@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>💻 Data-Science-Job-Change-Prediction</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+
+
+<h1>Data Science Job Change Prediction</h1>
+
+<h2><span>with ❤ by</span> Tanishq Chandra <a href="https://github.com/Tanishq-19/Data-Science-Job-Change-Predition" target="_blank">🐱GitHub</a></h2>
+
+
+  <p style="padding-top: 80px; color: white; margin: 0 auto; width:500px;">Predicts the probability of an candidate looking for a new job</p>
+
+
+		<form class="form" style="margin: 0 auto; width:500px; color: white; font-weight: bold; padding-top: 60px;" method="POST" action="{{url_for('predict')}}">
+			<!-- <h4 style="color: white; margin-bottom: 0;">Age</h6> -->
+			City Code (e.g. city_1): <input type="text" placeholder="Type here" name="CC" required>
+			<br>
+			<br>
+			<!-- <h4 style="color: white; margin-bottom: 0;">Sex</h6> -->
+      City Development Index: <input type="text" placeholder="Type here" name="CDI" required>
+			<br>
+			<br>
+			<!-- <h4 style="color: white; margin-bottom: 0;">Chest Pain Type</h6> -->
+			Gender: <select name="Gen" required>
+				<option value=1>Female</option>
+				<option value=2>Male</option>
+				<option value=3>Other</option>
+			</select>
+			<br>
+			<br>
+			<!-- <h4 style="color: white; margin-bottom: 0;">Resting blood pressure (in mm Hg on admission to the hospital)</h6> -->
+      Relevent Experience: <select name="RE" required>
+        <option value=0>Has relevent experince</option>
+        <option value=1>Has no relevent experince</option>
+      </select>
+			<br>
+			<br>
+			<!-- <h4 style="color: white; margin-bottom: 0;">Serum cholestoral in mg/dl</h6> -->
+      Enrolled University: <select name="EU" required>
+        <option value=1>Full Time Course</option>
+        <option value=2>Part Time Course</option>
+        <option value=3>NO enrollment</option>
+      </select>
+			
+			<br>
+			<br>
+			<!-- <h4 style="color: white; margin-bottom: 0;">Fasting blood sugar > 120 mg/dl</h6> -->
+			Education Level : <select name="EL" required>
+				<option value=1>Graduation</option>
+				<option value=2>High School</option>
+        <option value=3>Masters</option>
+				<option value=4>PhD</option>
+        <option value=5>Primary School</option>
+			</select>
+			
+      <br>
+      <br>
+			Major Discipline : <select name="MD" required>
+				<option value=1>Arts</option>
+				<option value=2>Bussiness Degree</option>
+        <option value=3>Humanities</option>
+				<option value=4>No Major</option>
+        <option value=5>Other</option>
+        <option value=6>STEM</option>
+			</select>
+			<br>
+			<br>
+			Experience(in yrs) : <select name="Ex" required>
+				<option value=21>less than 1</option>
+				<option value=1>1</option>
+        <option value=12>2</option>
+				<option value=14>3</option>
+        <option value=15>4</option>
+        <option value=16>5</option>
+        <option value=17>6</option>
+        <option value=18>7</option>
+				<option value=19>8</option>
+        <option value=20>9</option>
+        <option value=2>10</option>
+        <option value=3>11</option>
+        <option value=4>12</option>
+				<option value=5>13</option>
+        <option value=6>14</option>
+        <option value=7>15</option>
+        <option value=8>16</option>
+        <option value=9>17</option>
+				<option value=10>18</option>
+        <option value=11>19</option>
+        <option value=13>20</option>
+        <option value=22>More than 20</option>
+			</select>
+
+			<br>
+			<br>
+			<!-- <h4 style="color: white; margin-bottom: 0;">Exercise induced angina</h6> -->
+			Company Size: <select name="CS" required>
+				<option value=1>10-49</option>
+				<option value=2>100-500</option>
+        <option value=3>1000-4999</option>
+				<option value=4>10000+</option>
+        <option value=5>50-99</option>
+				<option value=6>500-999</option>
+        <option value=7>5000-9999</option>
+				<option value=8>less than 10</option>
+      </select>
+
+      <br>
+      <br>
+
+      company_type: <select name="CT" required>
+				<option value=1>Early Stage StartUp</option>
+				<option value=2>Funded StartUp</option>
+        <option value=3>NGO</option>
+				<option value=4>Other</option>
+        <option value=5>Public Sector</option>
+				<option value=6>Pvt Ltd</option>
+        </select>
+
+      <br>
+      <br>
+
+      Last New Job: <select name="LNJ" required>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>More than 4</option>
+        <option value=6>Never</option>
+        </select>
+
+			<br>
+			<br>
+			Training Hours: <input type="number" placeholder="Type here" name="TH" required>
+
+			<br>
+
+			<button type="submit" style="margin-left: 80px; margin-top: 30px; margin-bottom: 70px; padding: 10px;">📈Predict</button>
+		
+			
+
+		</form>
+
+
+
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://ricostacruz.com/jquery.transit/jquery.transit.min.js'></script><script  src="{{ url_for('static',filename='styles/script.js') }}"></script>
+
+</body>
+</html>
