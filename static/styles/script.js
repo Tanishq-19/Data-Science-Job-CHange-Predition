@@ -1,70 +1,60 @@
-var background = {}
-  
-  background.initializr = function (){
-    
-    var $this = this;
-     
+var colors = new Array(
+  [62,35,255],
+  [60,255,60],
+  [255,35,98],
+  [45,175,230],
+  [255,0,255],
+  [255,128,0]);
 
-   
-    //option
-    $this.id = "background_css3";
-    $this.style = {bubbles_color:"#fff",stroke_width:0, stroke_color :"black"};
-    $this.bubbles_number = 30;
-    $this.speed = [1500,8000]; //milliseconds
-    $this.max_bubbles_height = $this.height;
-    $this.shape = false // 1 : circle | 2 : triangle | 3 : rect | false :random
+var step = 0;
+//color table indices for: 
+// current color left
+// next color left
+// current color right
+// next color right
+var colorIndices = [0,1,2,3];
+
+//transition speed
+var gradientSpeed = 0.002;
+
+function updateGradient()
+{
+  
+  if ( $===undefined ) return;
+  
+var c0_0 = colors[colorIndices[0]];
+var c0_1 = colors[colorIndices[1]];
+var c1_0 = colors[colorIndices[2]];
+var c1_1 = colors[colorIndices[3]];
+
+var istep = 1 - step;
+var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+var color1 = "rgb("+r1+","+g1+","+b1+")";
+
+var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+var color2 = "rgb("+r2+","+g2+","+b2+")";
+
+ $('#gradient').css({
+   background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
+    background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
+  
+  step += gradientSpeed;
+  if ( step >= 1 )
+  {
+    step %= 1;
+    colorIndices[0] = colorIndices[1];
+    colorIndices[2] = colorIndices[3];
     
-    if($("#"+$this.id).lenght > 0){
-      $("#"+$this.id).remove();
-    }
-    $this.object = $("<div style='z-inde:-1;margin:0;padding:0; overflow:hidden;position:absolute;bottom:0' id='"+$this.id+"'> </div>'").appendTo("body");
-    
-    $this.ww = $(window).width()
-    $this.wh = $(window).height()
-    $this.width = $this.object.width($this.ww);
-    $this.height = $this.object.height($this.wh);
-    
-    
-    $("body").prepend("<style>.shape_background {transform-origin:center; width:80px; height:80px; background: "+$this.style.bubbles_color+"; position: absolute}</style>");
-    
-    
-    for (i = 0; i < $this.bubbles_number; i++) {
-        $this.generate_bubbles()
-    }
+    //pick two new target color indices
+    //do not pick the same as the current one
+    colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+    colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
     
   }
+}
 
-  
-  
-  
-
-   background.generate_bubbles = function() {
-     var $this = this;
-     var base = $("<div class='shape_background'></div>");
-     var shape_type = $this.shape ? $this.shape : Math.floor($this.rn(1,3));
-     if(shape_type == 1) {
-       var bolla = base.css({borderRadius: "50%"})
-     }else if (shape_type == 2){
-       var bolla = base.css({width:0, height:0, "border-style":"solid","border-width":"0 40px 69.3px 40px","border-color":"transparent transparent "+$this.style.bubbles_color+" transparent", background:"transparent"}); 
-     }else{
-       var bolla = base; 
-     }    
-     var rn_size = $this.rn(.8,1.2);
-     bolla.css({"transform":"scale("+rn_size+") rotate("+$this.rn(-360,360)+"deg)", top:$this.wh+100, left:$this.rn(-60, $this.ww+60)});        
-     bolla.appendTo($this.object);
-     bolla.transit({top: $this.rn($this.wh/2,$this.wh/2-60), "transform":"scale("+rn_size+") rotate("+$this.rn(-360,360)+"deg)", opacity: 0},$this.rn($this.speed[0],$this.speed[1]), function(){
-       $(this).remove();
-       $this.generate_bubbles();
-     })
-       
-    }
-
-
-background.rn = function(from, to, arr) {
-  if(arr){
-          return Math.random() * (to - from + 1) + from;
-  }else{
-    return Math.floor(Math.random() * (to - from + 1) + from);
-  }
-    }
-background.initializr()
+setInterval(updateGradient,10);
