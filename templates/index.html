@@ -15,15 +15,23 @@
   <body>
     <div id="gradient" />
     
-    <h1 style="margin: 0 auto; width:600px; z-index: 40; color: white; font-weight: bold; padding-top: 60px;">💻 Data Science Job Change Prediction</h1>
+	<div style="position: relative; width: 100%;">
+		<div style="position: absolute; top: 0; right: 0; width: 100px; text-align:right;">
+			<a href="https://github.com/Tanishq-19" style="color: white;"><p style="padding: 30px; color: white; font-weight: bold;">🐱GitHub</p></a>
+			
+		</div>
+		
+	</div>
 
+    <h1 style="margin: 0 auto; width:600px; z-index: 40; color: white; font-weight: bold; padding-top: 60px;">💻 Data Science Job Change Prediction</h1>
+	<p style="color: white; margin: 0 auto; width:500px; padding-bottom: 20px;">Developed with love ❤ by <a href="https://tanishq-19.github.io/portfolio/" style="color: white; font-weight: bold;">Tanishq</a></p>
 	<!-- <h7 style="margin: 0 auto; width:500px; z-index: 40; color: white; font-weight: bold; padding-top: 60px;"><span>with ❤ by</span> Tanishq Chandra <a href="https://github.com/Tanishq-19/Data-Science-Job-Change-Predition" target="_blank">🐱GitHub</a></h7> -->
 
 
-  <p style="padding-top: 50px; color: white; margin: 0 auto; width:500px;">✔ Predicts the probability of an candidate looking for a new job</p>
+  <p style="padding-top: 20px; color: white; margin: 0 auto; width:500px;">✔ Predicts the probability of an candidate looking for a new job</p>
 
 
-		<form class="form" style="margin: 0 auto; width:500px; z-index: 40; color: white; font-weight: bold; padding-top: 60px;" method="POST" action="{{url_for('predict')}}">
+		<form class="form" style="margin: 0 auto; width:500px; z-index: 40; color: white; font-weight: bold; padding-top: 30px;" method="POST" action="{{url_for('predict')}}">
 			<!-- <h4 style="color: white; margin-bottom: 0;">Age</h6> -->
 			City Code: <select name="Cc" required>
 				<option value=0>City_1</option>
@@ -153,7 +161,7 @@
 			<br>
 			<br>
 			<!-- <h4 style="color: white; margin-bottom: 0;">Sex</h6> -->
-        	City Development Index: <input type="text" placeholder="Type here" name="CDI" required>
+        	City Development Index: (3 decimal values only) <input type="number" step="0.001" placeholder="Type here" name="CDI" required>
 			<br>
 			<br>
 			<!-- <h4 style="color: white; margin-bottom: 0;">Chest Pain Type</h6> -->
@@ -175,7 +183,7 @@
 			Enrolled University: <select name="EU" required>
 				<option value=1>Full Time Course</option>
 				<option value=2>Part Time Course</option>
-				<option value=3>NO enrollment</option>
+				<option value=3>No enrollment</option>
 			</select>
 			
 			<br>

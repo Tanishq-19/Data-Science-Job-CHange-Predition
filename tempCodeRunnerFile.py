@@ -1,1 +1,1 @@
-ndex.html
+model = pickle.load(open("XGB_bf_trained_model.pkl", "rb"))
